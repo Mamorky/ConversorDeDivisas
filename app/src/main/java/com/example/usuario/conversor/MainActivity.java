@@ -10,6 +10,11 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+/**
+ * @author mamorky
+ * @version 1.0
+ * */
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     double cambio = 0.84636;
@@ -35,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public String convertirADolares(String cantidad)
     {
-        double valor = Double.parseDouble(cantidad)*cambio-2;
+        double valor = Double.parseDouble(cantidad)*cambio;
         return Double.toString(valor);
     }
 
