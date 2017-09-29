@@ -16,9 +16,6 @@ import android.widget.TextView;
  * */
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-
-    double cambio = 0.84636;
-
     Button convertirBtn;
     RadioButton dolarEuroRd;
     RadioButton euroDolarRd;
@@ -38,39 +35,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         convertirBtn.setOnClickListener(this);
     }
 
-    public String convertirADolares(String cantidad)
-    {
-        double valor = Double.parseDouble(cantidad)*cambio;
-        return Double.toString(valor);
-    }
-
-    public String convertirAEuros(String cantidad)
-    {
-        double valor = Double.parseDouble(cantidad)/cambio;
-        return Double.toString(valor);
-    }
-
     @Override
     public void onClick(View view) {
-
-        double dolares = 0;
-        double euros = 0;
+        Conversor.TipoCambio cambio;
 
         if(view == convertirBtn)
         {
+            try{
             if(dolarEuroRd.isChecked())
             {
-                dolares = Double.parseDouble(dolarTexto.getText().toString());
-                euros = Double.parseDouble(convertirAEuros(Double.toString(dolares)));
-                euroTexto.setText(Double.toString((double)Math.round(euros*100d)/100d));
+                cambio = Conversor.TipoCambio.dolarEuro;
+                Conversor conver = new Conversor(Double.parseDouble(dolarTexto.getText().toString()),cambio);
+                euroTexto.setText(String.valueOf(conver.getEuros()));
             }
 
             if(euroDolarRd.isChecked())
             {
-                euros = Double.parseDouble(euroTexto.getText().toString());
-                dolares = Double.parseDouble(convertirADolares(Double.toString(euros)));
-                dolarTexto.setText(Double.toString((double)Math.round(dolares*100d)/100d));
-            }
+                cambio = Conversor.TipoCambio.euroDolar;
+                Conversor conver = new Conversor(Double.parseDouble(euroTexto.getText().toString()),cambio);
+                dolarTexto.setText(String.valueOf(conver.getDolares()));
+            }}catch (Exception e){};
         }
     }
 }
